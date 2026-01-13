@@ -3,7 +3,7 @@
 //  AIVibe
 //
 //  Created by Claude on 1/12/26.
-//
+//  from 50 Palmer. give day12 prompts in 中文
 
 import SwiftUI
 import Supabase
