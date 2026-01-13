@@ -35,6 +35,16 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
                 .padding(.horizontal)
+
+                NavigationLink(destination: SettingsView()) {
+                    Label("设置", systemImage: "gearshape.fill")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal)
             }
             .padding()
             .navigationTitle("AIVibe")
