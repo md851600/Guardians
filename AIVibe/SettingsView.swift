@@ -54,8 +54,10 @@ struct SettingsView: View {
                         Text("删除账户")
                     }
                     .foregroundColor(.red)
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
+                #if os(macOS)
+                .buttonStyle(.borderless)
+                #endif
             }
         }
         .navigationTitle("设置")
@@ -98,8 +100,10 @@ struct SettingsView: View {
 
                     TextField("输入确认文字", text: $deleteConfirmText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        #if os(iOS)
                         .autocapitalization(.none)
-                        .disableAutocorrection(true)
+                        #endif
+                        .autocorrectionDisabled()
                 }
                 .padding(.horizontal)
 

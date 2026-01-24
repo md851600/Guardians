@@ -18,36 +18,38 @@ struct MapKitTestView: View {
     @State private var showingAddPOI = false
     @State private var newPOIName = ""
     @State private var newPOIType = "hospital"
-    @State private var trackingMode: MapUserTrackingMode = .follow
+    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    @State private var isFollowingUser = true
 
     let poiTypes = ["hospital", "supermarket", "factory", "school", "park", "restaurant"]
 
     var body: some View {
         ZStack(alignment: .bottom) {
             // Map View
-            Map(coordinateRegion: $region,
-                showsUserLocation: true,
-                userTrackingMode: $trackingMode,
-                annotationItems: annotations) { annotation in
-                MapAnnotation(coordinate: annotation.coordinate) {
-                    VStack {
-                        Image(systemName: iconForPOIType(annotation.type))
-                            .foregroundColor(colorForPOIType(annotation.type))
-                            .font(.title)
-                            .padding(8)
-                            .background(Color.white)
-                            .clipShape(Circle())
-                            .shadow(radius: 4)
+            Map(position: $cameraPosition) {
+                UserAnnotation()
 
-                        Text(annotation.name)
-                            .font(.caption)
-                            .padding(4)
-                            .background(Color.white.opacity(0.8))
-                            .cornerRadius(4)
+                ForEach(annotations) { annotation in
+                    Annotation(annotation.name, coordinate: annotation.coordinate) {
+                        VStack {
+                            Image(systemName: iconForPOIType(annotation.type))
+                                .foregroundColor(colorForPOIType(annotation.type))
+                                .font(.title)
+                                .padding(8)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+
+                            Text(annotation.name)
+                                .font(.caption)
+                                .padding(4)
+                                .background(Color.white.opacity(0.8))
+                                .cornerRadius(4)
+                        }
                     }
                 }
             }
-            .edgesIgnoringSafeArea(.all)
+            .ignoresSafeArea()
 
             // Control Panel
             VStack(spacing: 16) {
@@ -100,12 +102,12 @@ struct MapKitTestView: View {
                 // Tracking Mode Toggle
                 Button(action: toggleTrackingMode) {
                     HStack {
-                        Image(systemName: trackingMode == .follow ? "location.fill" : "location")
-                        Text(trackingMode == .follow ? "Tracking On" : "Tracking Off")
+                        Image(systemName: isFollowingUser ? "location.fill" : "location")
+                        Text(isFollowingUser ? "Tracking On" : "Tracking Off")
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(trackingMode == .follow ? Color.blue : Color.gray)
+                    .background(isFollowingUser ? Color.blue : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -209,7 +211,12 @@ struct MapKitTestView: View {
     }
 
     func toggleTrackingMode() {
-        trackingMode = trackingMode == .follow ? .none : .follow
+        isFollowingUser.toggle()
+        if isFollowingUser {
+            cameraPosition = .userLocation(fallback: .automatic)
+        } else {
+            cameraPosition = .region(region)
+        }
     }
 
     func iconForPOIType(_ type: String) -> String {

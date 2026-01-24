@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1801DD642F1D7E55002F03D2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1801DD632F1D7E55002F03D2 /* GoogleSignIn */; };
+		1801DD662F1D7E55002F03D2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1801DD652F1D7E55002F03D2 /* GoogleSignInSwift */; };
 		1873C17E2F07333B00BE9201 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1873C17D2F07333B00BE9201 /* Supabase */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1801DD662F1D7E55002F03D2 /* GoogleSignInSwift in Frameworks */,
 				1873C17E2F07333B00BE9201 /* Supabase in Frameworks */,
+				1801DD642F1D7E55002F03D2 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +83,8 @@
 			name = AIVibe;
 			packageProductDependencies = (
 				1873C17D2F07333B00BE9201 /* Supabase */,
+				1801DD632F1D7E55002F03D2 /* GoogleSignIn */,
+				1801DD652F1D7E55002F03D2 /* GoogleSignInSwift */,
 			);
 			productName = AIVibe;
 			productReference = 1873C15E2EFB96E400BE9201 /* AIVibe.app */;
@@ -110,6 +116,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1873C16C2EFEC7A400BE9201 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				1801DD622F1D7E55002F03D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1873C15F2EFB96E400BE9201 /* Products */;
@@ -372,6 +379,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1801DD622F1D7E55002F03D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 		1873C16C2EFEC7A400BE9201 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase/supabase-swift";
@@ -383,6 +398,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1801DD632F1D7E55002F03D2 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1801DD622F1D7E55002F03D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		1801DD652F1D7E55002F03D2 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1801DD622F1D7E55002F03D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		1873C17D2F07333B00BE9201 /* Supabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1873C16C2EFEC7A400BE9201 /* XCRemoteSwiftPackageReference "supabase-swift" */;
