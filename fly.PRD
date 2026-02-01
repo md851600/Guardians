@@ -1,0 +1,33 @@
+第二部分：PRD (Product Requirement Document) - 产品需求文档
+文档目标： 明确如何从技术和功能层面把这个网页做出来，给开发和产品看。
+
+1. 产品背景与技术选型
+产品定位： 一个轻量级、利用 WebSocket 实现实时互动的 H5 游戏。
+技术栈要求 (Technical Stack)：
+前端渲染： Three.js (用于 3D 场景渲染) 或 Babylon.js。
+后端通信： WebSocket (Socket.io 或 uWebSockets) 实现低延迟同步。
+无服务器架构： 尽可能使用静态托管 (Vercel/Netlify) + 边缘计算，降低服务器成本。
+2. 功能需求清单 (Functional Requirements)
+模块	功能点	详细描述	优先级
+账户	游客登录	用户输入昵称即可游玩，生成随机 UUID 存入 LocalStorage。	P0 (最高)
+核心	飞行物理	实现基础的气动逻辑（重力、升力、阻力），不需要太硬核，要手感顺滑。	P0
+网络	状态同步	每秒 N 次同步所有玩家的坐标 (x,y,z) 和旋转 (quaternion) 给客户端。	P0
+网络	插值算法	前端需对其他玩家的位置进行插值平滑处理 (Interpolation)，防止卡顿瞬移。	P1
+战斗	击杀广播	当玩家 A 击杀 B，全服广播 "Player A shot down Player B"。	P1
+商业化	换肤系统	支持购买不同的飞机模型（如 F16, 纸飞机），通过 Stripe 支付解锁。	P2
+商业化	广告植入	在地图空中放置“飞艇”，飞艇侧面贴图为赞助商 Banner，点击可跳转。	P2
+聊天	气泡聊天	玩家发送文字，文字显示在飞机头顶气泡，持续 5 秒。	P3
+3. 非功能需求 (Non-Functional Requirements)
+性能指标：
+帧率 (FPS)： 2018 年后的手机/电脑需稳定在 60 FPS。
+Draw Calls： 同屏模型需使用 Instanced Mesh（实例化网格）技术，减少渲染开销。
+延迟： 网络 RTT (往返时延) 在 100ms 以内需有良好的同步体验。
+兼容性：
+必须适配 iOS Safari (解决全屏和触摸事件冲突)。
+PC 端浏览器窗口缩放时，画布需自适应 (Responsive Resize)。
+4. 数据埋点 (Analytics)
+核心指标：
+DAU (日活)。
+Avg_Session_Time (平均飞行时长)。
+Skin_Purchase_Rate (皮肤购买转化率)。
+Crash_Rate (游戏报错/崩溃率)。
